@@ -5,8 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  deploy:
-    name: Deploy
+  build_and_publish:
+    name: Build and publish
     runs-on: ubuntu-latest
 
     steps:
@@ -20,3 +20,12 @@ jobs:
 
       - name: Build app
         run: ./scripts/buildprod.sh
+
+      - name: Login to GHCR
+        run: docker login --username ${{ github.actor }} --password ${{ secrets.GH_TOKEN }} ghcr.io
+
+      - name: Build image
+        run: docker build . --tag ghcr.io/${{ github.actor }}/notely-api:latest
+
+      - name: Push image
+        run: docker push ghcr.io/${{ github.actor }}/notely-api:latest
