@@ -4,8 +4,8 @@ on:
   push
 
 jobs:
-  build_and_publish:
-    name: Build and publish
+  build_and_deploy:
+    name: Build and deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -33,3 +33,6 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/itawhite/notely-api:latest
+
+      - name: Deploy to Render
+        run: curl --fail --silent --show-error "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
