@@ -21,10 +21,10 @@ jobs:
         run: ./scripts/buildprod.sh
 
       - name: Login to GHCR
-        run: docker login --username ${{ github.actor }} --password ${{ secrets.GH_TOKEN }} ghcr.io
+        run: docker login --username itawhite --password ${{ secrets.GH_TOKEN }} ghcr.io
 
       - name: Build image
-        run: docker build . --tag ghcr.io/${{ github.actor }}/notely-api:latest
+        run: docker build . --tag ghcr.io/itawhite/notely-api:latest
 
       - name: Push image
-        run: docker push ghcr.io/${{ github.actor }}/notely-api:latest
+        run: docker push ghcr.io/itawhite/notely-api:latest
